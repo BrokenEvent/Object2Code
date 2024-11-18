@@ -4,7 +4,7 @@ using BrokenEvent.Object2Code.Interfaces;
 
 namespace BrokenEvent.Object2Code.Builders
 {
-  class PropertyBuilder: IBuilder
+  internal class PropertyBuilder : IBuilder
   {
     protected readonly PropertyInfo property;
 

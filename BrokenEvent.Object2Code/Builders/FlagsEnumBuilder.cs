@@ -4,7 +4,7 @@ using BrokenEvent.Object2Code.Interfaces;
 
 namespace BrokenEvent.Object2Code.Builders
 {
-  class FlagsEnumBuilder: IBuilder
+  internal class FlagsEnumBuilder : IBuilder
   {
     private readonly Type type;
 

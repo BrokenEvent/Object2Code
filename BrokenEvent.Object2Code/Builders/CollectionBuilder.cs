@@ -5,7 +5,7 @@ using BrokenEvent.Object2Code.Interfaces;
 
 namespace BrokenEvent.Object2Code.Builders
 {
-  class CollectionBuilder: IBuilderEx
+  internal class CollectionBuilder : IBuilderEx
   {
     private readonly Type collectionType;
     private readonly Type itemType;

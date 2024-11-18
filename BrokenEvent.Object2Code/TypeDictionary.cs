@@ -7,7 +7,7 @@ using BrokenEvent.Object2Code.Interfaces;
 
 namespace BrokenEvent.Object2Code
 {
-  class TypeDictionary: ITypeDictionary
+  internal class TypeDictionary : ITypeDictionary
   {
     private readonly Dictionary<Type, IBuilder> builders = new Dictionary<Type, IBuilder>();
     private readonly PrimitiveBuilder primitiveBuilder = new PrimitiveBuilder();

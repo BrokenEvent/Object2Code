@@ -4,7 +4,7 @@ using BrokenEvent.Object2Code.Interfaces;
 
 namespace BrokenEvent.Object2Code.Builders
 {
-  class DefaultBuilder: IBuilder
+  internal class DefaultBuilder : IBuilder
   {
     private readonly string value;
     private readonly Type type;
@@ -31,7 +31,10 @@ namespace BrokenEvent.Object2Code.Builders
       }
 
       if (context.Settings.AddToDo)
-        context.Append(" /* TODO */");
+      {
+        context.Append(" ");
+        context.Append(context.Settings.ToDo);
+      }
     }
   }
 }

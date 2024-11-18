@@ -4,7 +4,7 @@ using BrokenEvent.Object2Code.Interfaces;
 
 namespace BrokenEvent.Object2Code.Builders
 {
-  class ArrayBuilder: IBuilder
+  internal class ArrayBuilder: IBuilder
   {
     private readonly Type type;
 

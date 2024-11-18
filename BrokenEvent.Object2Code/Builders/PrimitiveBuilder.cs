@@ -2,7 +2,7 @@
 
 namespace BrokenEvent.Object2Code.Builders
 {
-  class PrimitiveBuilder: IBuilder
+  internal class PrimitiveBuilder : IBuilder
   {
     public void Build(object target, IBuildContext context)
     {

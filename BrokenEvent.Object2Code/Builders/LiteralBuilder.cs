@@ -2,7 +2,7 @@
 
 namespace BrokenEvent.Object2Code.Builders
 {
-  class LiteralBuilder: IBuilder
+  internal class LiteralBuilder : IBuilder
   {
     private readonly string quote;
 

@@ -7,7 +7,7 @@ using BrokenEvent.Object2Code.Interfaces;
 
 namespace BrokenEvent.Object2Code.Builders
 {
-  class DictionaryBuilder: IBuilderEx
+  internal class DictionaryBuilder : IBuilderEx
   {
     private readonly Type dictionaryType;
     private readonly Type keyType;

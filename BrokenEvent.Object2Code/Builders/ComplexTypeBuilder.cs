@@ -6,7 +6,7 @@ using BrokenEvent.Object2Code.Interfaces;
 
 namespace BrokenEvent.Object2Code.Builders
 {
-  class ComplexTypeBuilder: IBuilder
+  internal class ComplexTypeBuilder : IBuilder
   {
     private readonly Type type;
     private readonly List<PropertyBuilder> properties = new List<PropertyBuilder>();
@@ -106,7 +106,7 @@ namespace BrokenEvent.Object2Code.Builders
           context.Append("()");
 
         if (preferredConstructor == null)
-          context.Append("/* TODO */");
+          context.Append(context.Settings.ToDo);
 
         return;
       }
