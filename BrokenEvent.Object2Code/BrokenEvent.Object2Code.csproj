@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <EnableDefaultItems>false</EnableDefaultItems>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="BuildContext.cs" />
+    <Compile Include="BuilderSettings.cs" />
+    <Compile Include="Builders\ArgBuilder.cs" />
+    <Compile Include="Builders\ArrayBuilder.cs" />
+    <Compile Include="Builders\DefaultBuilder.cs" />
+    <Compile Include="Builders\DictionaryBuilder.cs" />
+    <Compile Include="CodeBuilder.cs" />
+    <Compile Include="Builders\CollectionBuilder.cs" />
+    <Compile Include="Builders\ComplexTypeBuilder.cs" />
+    <Compile Include="Builders\EnumBuilder.cs" />
+    <Compile Include="Interfaces\IBuildContext.cs" />
+    <Compile Include="Interfaces\ITypeDictionary.cs" />
+    <Compile Include="Builders\LiteralBuilder.cs" />
+    <Compile Include="Builders\PrimitiveBuilder.cs" />
+    <Compile Include="Interfaces\IBuilder.cs" />
+    <Compile Include="Builders\PropertyBuilder.cs" />
+    <Compile Include="TypeDictionary.cs" />
+  </ItemGroup>
+
+</Project>
