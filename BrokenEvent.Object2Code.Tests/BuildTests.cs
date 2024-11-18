@@ -42,9 +42,9 @@ namespace BrokenEvent.Object2Code.Tests
         CharValue = '!'
       };
 
-      string actual = CodeBuilder.BuildStaticReadOnly(obj, "Simple", new BuilderSettings() { UseFullNames = true });
+      string actual = CodeBuilder.BuildStaticReadOnly(obj, "SimpleFullName", new BuilderSettings() { UseFullNames = true });
       const string expected =
-@"    public static readonly BrokenEvent.Object2Code.Tests.Types.SimpleType Simple = new BrokenEvent.Object2Code.Tests.Types.SimpleType
+@"    public static readonly BrokenEvent.Object2Code.Tests.Types.SimpleType SimpleFullName = new BrokenEvent.Object2Code.Tests.Types.SimpleType
     {
       IntValue = 25,
       StringValue = ""Hello World"",
@@ -65,15 +65,50 @@ namespace BrokenEvent.Object2Code.Tests
         CharValue = '!'
       };
 
-      string actual = CodeBuilder.BuildStaticReadOnly(obj, "Simple", new BuilderSettings { SkipBracesForEmptyConstructor = false });
+      string actual = CodeBuilder.BuildStaticReadOnly(obj, "SimpleBraces", new BuilderSettings { SkipBracesForEmptyConstructor = false });
       const string expected =
-@"    public static readonly SimpleType Simple = new SimpleType()
+@"    public static readonly SimpleType SimpleBraces = new SimpleType()
     {
       IntValue = 25,
       StringValue = ""Hello World"",
       CharValue = '!',
       EnumValue = SimpleEnum.SomeValue
     };";
+
+      Assert.AreEqual(expected, actual);
+    }
+
+    [Test]
+    public void BuildConstructorHybrid()
+    {
+      ConstructorTypeReadOnly obj = new ConstructorTypeReadOnly(25)
+      {
+        StringValue = "Hello World",
+      };
+
+      string actual = CodeBuilder.BuildStaticReadOnly(obj, "CtorReadOnly");
+      const string expected =
+@"    public static readonly ConstructorTypeReadOnly CtorReadOnly = new ConstructorTypeReadOnly(
+        25
+      )
+    {
+      StringValue = ""Hello World""
+    };";
+
+      Assert.AreEqual(expected, actual);
+    }
+
+    [Test]
+    public void BuildConstructorAllReadOnly()
+    {
+      ConstructorTypeAllReadOnly obj = new ConstructorTypeAllReadOnly(25, "Hello World");
+
+      string actual = CodeBuilder.BuildStaticReadOnly(obj, "CtorAllReadOnly");
+      const string expected =
+@"    public static readonly ConstructorTypeAllReadOnly CtorAllReadOnly = new ConstructorTypeAllReadOnly(
+        25,
+        ""Hello World""
+      );";
 
       Assert.AreEqual(expected, actual);
     }
@@ -92,9 +127,9 @@ namespace BrokenEvent.Object2Code.Tests
         }
       };
 
-      string actual = CodeBuilder.BuildStaticReadOnly(obj, "Simple");
+      string actual = CodeBuilder.BuildStaticReadOnly(obj, "Complex");
       const string expected =
-        @"    public static readonly ComplexType Simple = new ComplexType
+@"    public static readonly ComplexType Complex = new ComplexType
     {
       Name = ""test"",
       EmbeddedSimple = new SimpleType
@@ -124,9 +159,9 @@ namespace BrokenEvent.Object2Code.Tests
         }
       };
 
-      string actual = CodeBuilder.BuildStaticReadOnly(obj, "Simple", new BuilderSettings(){NullValuesHandling = NullValues.Ignore});
+      string actual = CodeBuilder.BuildStaticReadOnly(obj, "ComplexNoNulls", new BuilderSettings { NullValuesHandling = NullValues.Ignore });
       const string expected =
-@"    public static readonly ComplexType Simple = new ComplexType
+@"    public static readonly ComplexType ComplexNoNulls = new ComplexType
     {
       Name = ""test"",
       EmbeddedSimple = new SimpleType
@@ -166,9 +201,9 @@ namespace BrokenEvent.Object2Code.Tests
         }
       };
 
-      string actual = CodeBuilder.BuildStaticReadOnly(obj, "Simple");
+      string actual = CodeBuilder.BuildStaticReadOnly(obj, "MoreComplex");
       const string expected =
-@"    public static readonly ComplexType Simple = new ComplexType
+@"    public static readonly ComplexType MoreComplex = new ComplexType
     {
       Name = ""test"",
       EmbeddedSimple = new SimpleType
@@ -233,8 +268,9 @@ namespace BrokenEvent.Object2Code.Tests
         }
       };
 
-      string actual = CodeBuilder.BuildStaticReadOnly(obj, "List"); const string expected =
-@"    public static readonly ListTypeNew List = new ListTypeNew
+      string actual = CodeBuilder.BuildStaticReadOnly(obj, "ListNew");
+      const string expected =
+@"    public static readonly ListTypeNew ListNew = new ListTypeNew
     {
       Name = ""test list"",
       Items = new List<SimpleType>
@@ -272,8 +308,8 @@ namespace BrokenEvent.Object2Code.Tests
         }
       };
 
-      string actual = CodeBuilder.BuildStaticReadOnly(obj, "Dictionary"); const string expected =
-@"    public static readonly DictionaryTypeNew Dictionary = new DictionaryTypeNew
+      string actual = CodeBuilder.BuildStaticReadOnly(obj, "DictionaryNew"); const string expected =
+@"    public static readonly DictionaryTypeNew DictionaryNew = new DictionaryTypeNew
     {
       Name = ""test list"",
       Items = new Dictionary<string, SimpleType>
@@ -306,6 +342,5 @@ namespace BrokenEvent.Object2Code.Tests
 
     // TODO flag enums
     // TODO non-creatable lists/dictionaries/arrays
-    // TODO constructors
   }
 }

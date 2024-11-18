@@ -112,8 +112,6 @@ namespace BrokenEvent.Object2Code.Builders
         if (preferredConstructor == null)
           context.Append("/* TODO */");
 
-        context.AppendLineBreak();
-
         return;
       }
 
@@ -139,13 +137,16 @@ namespace BrokenEvent.Object2Code.Builders
       context.AppendLineBreak();
       context.Append(")");
       context.DecreaseIndent();
-      context.AppendLineBreak();
     }
 
     public void Build(object target, IBuildContext context)
     {
       BuildConstructor(target, context);
 
+      if (properties.Count == 0)
+        return;
+
+      context.AppendLineBreak();
       context.Append("{");
       context.IncreaseIndent();
       context.AppendLineBreak();
