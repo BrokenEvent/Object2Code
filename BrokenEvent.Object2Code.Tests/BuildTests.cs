@@ -411,6 +411,26 @@ namespace BrokenEvent.Object2Code.Tests
     }
 
     [Test]
+    public void BuildListRoot()
+    {
+      List<string> obj = new List<string>
+      {
+        "item1",
+        "item2"
+      };
+
+      string actual = CodeBuilder.BuildStaticReadOnly(obj, "ListRoot");
+      const string expected =
+@"    public static readonly List<string> ListRoot = new List<string>
+    {
+      ""item1"",
+      ""item2""
+    };";
+
+      Assert.AreEqual(expected, actual);
+    }
+
+    [Test]
     public void BuildDictionaryNew()
     {
       DictionaryTypeNew obj = new DictionaryTypeNew
@@ -501,6 +521,32 @@ namespace BrokenEvent.Object2Code.Tests
     }
 
     [Test]
+    public void BuildDictionaryRoot()
+    {
+      Dictionary<string, int> obj = new Dictionary<string, int>
+      {
+        { "item1", 29 },
+        { "item2", 100500 }
+      };
+
+      string actual = CodeBuilder.BuildStaticReadOnly(obj, "DictionaryRoot");
+      const string expected =
+@"    public static readonly Dictionary<string, int> DictionaryRoot = new Dictionary<string, int>
+    {
+      {
+        ""item1"",
+        29
+      },
+      {
+        ""item2"",
+        100500
+      }
+    };";
+
+      Assert.AreEqual(expected, actual);
+    }
+
+    [Test]
     public void BuildFlagsEnum1()
     {
       FlagsEnumType obj = new FlagsEnumType
@@ -549,6 +595,23 @@ namespace BrokenEvent.Object2Code.Tests
 @"    public static readonly FlagsEnumType FlagsEnum0 = new FlagsEnumType
     {
       Value = 0
+    };";
+
+      Assert.AreEqual(expected, actual);
+    }
+
+    [Test]
+    public void BuildGeneric()
+    {
+      GenericType<string, int> obj = new GenericType<string, int>("test") { Value = 259 };
+
+      string actual = CodeBuilder.BuildStaticReadOnly(obj, "Generic");
+      const string expected =
+@"    public static readonly GenericType<string, int> Generic = new GenericType<string, int>(
+        ""test""
+      )
+    {
+      Value = 259
     };";
 
       Assert.AreEqual(expected, actual);

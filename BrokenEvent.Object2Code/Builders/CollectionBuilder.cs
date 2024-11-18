@@ -7,13 +7,11 @@ namespace BrokenEvent.Object2Code.Builders
 {
   internal class CollectionBuilder : IBuilderEx
   {
-    private readonly Type collectionType;
-    private readonly Type itemType;
+    private readonly Type type;
 
-    public CollectionBuilder(Type collectionType, Type itemType)
+    public CollectionBuilder(Type type)
     {
-      this.collectionType = collectionType;
-      this.itemType = itemType;
+      this.type = type;
     }
 
     public void Build(object target, bool useConstructor, IBuildContext context)
@@ -21,10 +19,7 @@ namespace BrokenEvent.Object2Code.Builders
       if (useConstructor)
       {
         context.Append("new ");
-        context.AppendTypeName(collectionType);
-        context.Append("<");
-        context.AppendTypeName(itemType);
-        context.Append(">");
+        context.AppendTypeName(type);
         if (!context.Settings.SkipBracesForEmptyConstructor)
           context.Append("()");
       }

@@ -82,7 +82,7 @@ namespace BrokenEvent.Object2Code
           if (innerType.IsGenericType && innerType.GetGenericTypeDefinition() == typeof(KeyValuePair<,>))
             continue;
 
-          return new CollectionBuilder(type.GetGenericTypeDefinition(), innerType);
+          return new CollectionBuilder(type);
         }
 
         if (genericType == typeof(IDictionary<,>))

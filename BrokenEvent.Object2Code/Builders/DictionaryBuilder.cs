@@ -10,16 +10,12 @@ namespace BrokenEvent.Object2Code.Builders
   internal class DictionaryBuilder : IBuilderEx
   {
     private readonly Type dictionaryType;
-    private readonly Type keyType;
-    private readonly Type valueType;
     private readonly PropertyInfo getKeyProperty;
     private readonly PropertyInfo getValueProperty;
 
     public DictionaryBuilder(Type dictionaryType, Type keyType, Type valueType)
     {
       this.dictionaryType = dictionaryType;
-      this.keyType = keyType;
-      this.valueType = valueType;
 
       Type itemType = typeof(KeyValuePair<,>).MakeGenericType(keyType, valueType);
       getKeyProperty = itemType.GetProperty("Key");
@@ -32,11 +28,6 @@ namespace BrokenEvent.Object2Code.Builders
       {
         context.Append("new ");
         context.AppendTypeName(dictionaryType);
-        context.Append("<");
-        context.AppendTypeName(keyType);
-        context.Append(", ");
-        context.AppendTypeName(valueType);
-        context.Append(">");
         if (!context.Settings.SkipBracesForEmptyConstructor)
           context.Append("()");
       }

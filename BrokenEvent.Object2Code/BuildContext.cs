@@ -47,6 +47,25 @@ namespace BrokenEvent.Object2Code
         name = name.Substring(0, index);
 
       stringBuilder.Append(name);
+
+      if (!type.IsGenericType)
+        return;
+
+      // special handling for generic types
+      stringBuilder.Append("<");
+
+      bool firstArg = true;
+
+      foreach (Type arg in type.GetGenericArguments())
+      {
+        if (!firstArg)
+          stringBuilder.Append(", ");
+        firstArg = false;
+
+        AppendTypeName(arg);
+      }
+
+      stringBuilder.Append(">");
     }
 
     public void Append(string text)
