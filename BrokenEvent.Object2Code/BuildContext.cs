@@ -53,7 +53,7 @@ namespace BrokenEvent.Object2Code
       stringBuilder.Append(text);
     }
 
-    public void AppendContent(object target)
+    public void AppendContent(object target, bool useConstructor = true)
     {
       if (target == null)
       {
@@ -62,7 +62,11 @@ namespace BrokenEvent.Object2Code
       }
 
       IBuilder builder = Dictionary.GetBuilder(target.GetType());
-      builder.Build(target, this);
+
+      if (builder is IBuilderEx builderEx)
+        builderEx.Build(target, useConstructor, this);
+      else
+        builder.Build(target, this);
     }
 
     public void AppendIndent()

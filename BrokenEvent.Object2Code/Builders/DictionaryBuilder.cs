@@ -7,7 +7,7 @@ using BrokenEvent.Object2Code.Interfaces;
 
 namespace BrokenEvent.Object2Code.Builders
 {
-  class DictionaryBuilder: IBuilder
+  class DictionaryBuilder: IBuilderEx
   {
     private readonly Type dictionaryType;
     private readonly Type keyType;
@@ -24,20 +24,22 @@ namespace BrokenEvent.Object2Code.Builders
       Type itemType = typeof(KeyValuePair<,>).MakeGenericType(keyType, valueType);
       getKeyProperty = itemType.GetProperty("Key");
       getValueProperty = itemType.GetProperty("Value");
-
     }
 
-    public void Build(object target, IBuildContext context)
+    public void Build(object target, bool useConstructor, IBuildContext context)
     {
-      context.Append("new ");
-      context.AppendTypeName(dictionaryType);
-      context.Append("<");
-      context.AppendTypeName(keyType);
-      context.Append(", ");
-      context.AppendTypeName(valueType);
-      context.Append(">");
-      if (!context.Settings.SkipBracesForEmptyConstructor)
-        context.Append("()");
+      if (useConstructor)
+      {
+        context.Append("new ");
+        context.AppendTypeName(dictionaryType);
+        context.Append("<");
+        context.AppendTypeName(keyType);
+        context.Append(", ");
+        context.AppendTypeName(valueType);
+        context.Append(">");
+        if (!context.Settings.SkipBracesForEmptyConstructor)
+          context.Append("()");
+      }
       context.AppendLineBreak();
       context.Append("{");
       context.IncreaseIndent();
@@ -70,6 +72,11 @@ namespace BrokenEvent.Object2Code.Builders
       context.DecreaseIndent();
       context.AppendLineBreak();
       context.StringBuilder.Append("}");
+    }
+
+    public void Build(object target, IBuildContext context)
+    {
+      Build(target, true, context);
     }
   }
 }

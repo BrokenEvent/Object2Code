@@ -61,12 +61,7 @@ namespace BrokenEvent.Object2Code.Builders
 
       // fill the list with remaining properties
       foreach (PropertyInfo info in props.Values)
-      {
-        if (!info.CanWrite)
-          continue;
-
         properties.Add(new PropertyBuilder(info));
-      }
     }
 
     private static bool CheckConstructor(ParameterInfo[] parameters, IDictionary<string, PropertyInfo> props)
@@ -107,7 +102,7 @@ namespace BrokenEvent.Object2Code.Builders
 
       if (constructorArgs.Count == 0)
       {
-        if (properties.Count == 0 || !context.Settings.SkipBracesForEmptyConstructor)
+        if (properties.Count == 0 || !context.Settings.SkipBracesForEmptyConstructor || preferredConstructor == null)
           context.Append("()");
 
         if (preferredConstructor == null)

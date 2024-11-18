@@ -5,7 +5,7 @@ using BrokenEvent.Object2Code.Interfaces;
 
 namespace BrokenEvent.Object2Code.Builders
 {
-  class CollectionBuilder: IBuilder
+  class CollectionBuilder: IBuilderEx
   {
     private readonly Type collectionType;
     private readonly Type itemType;
@@ -16,15 +16,18 @@ namespace BrokenEvent.Object2Code.Builders
       this.itemType = itemType;
     }
 
-    public void Build(object target, IBuildContext context)
+    public void Build(object target, bool useConstructor, IBuildContext context)
     {
-      context.Append("new ");
-      context.AppendTypeName(collectionType);
-      context.Append("<");
-      context.AppendTypeName(itemType);
-      context.Append(">");
-      if (!context.Settings.SkipBracesForEmptyConstructor)
-        context.Append("()");
+      if (useConstructor)
+      {
+        context.Append("new ");
+        context.AppendTypeName(collectionType);
+        context.Append("<");
+        context.AppendTypeName(itemType);
+        context.Append(">");
+        if (!context.Settings.SkipBracesForEmptyConstructor)
+          context.Append("()");
+      }
       context.AppendLineBreak();
       context.Append("{");
       context.IncreaseIndent();
@@ -48,6 +51,11 @@ namespace BrokenEvent.Object2Code.Builders
       context.DecreaseIndent();
       context.AppendLineBreak();
       context.StringBuilder.Append("}");
+    }
+
+    public void Build(object target, IBuildContext context)
+    {
+      Build(target, true, context);
     }
   }
 }

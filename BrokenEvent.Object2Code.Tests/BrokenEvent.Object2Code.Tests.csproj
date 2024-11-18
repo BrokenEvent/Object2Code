@@ -47,8 +47,10 @@
     <Compile Include="Types\ConstructorPrivate.cs" />
     <Compile Include="Types\ConstructorTypeAllReadOnly.cs" />
     <Compile Include="Types\ConstructorTypeReadOnly.cs" />
+    <Compile Include="Types\DictionaryTypeExisting.cs" />
     <Compile Include="Types\DictionaryTypeNew.cs" />
     <Compile Include="Types\FlagsEnumType.cs" />
+    <Compile Include="Types\ListTypeExisting.cs" />
     <Compile Include="Types\ListTypeNew.cs" />
     <Compile Include="Types\SimpleType.cs" />
   </ItemGroup>

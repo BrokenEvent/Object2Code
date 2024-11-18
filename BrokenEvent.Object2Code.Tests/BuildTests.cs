@@ -346,6 +346,46 @@ namespace BrokenEvent.Object2Code.Tests
     }
 
     [Test]
+    public void BuildListExisting()
+    {
+      ListTypeExisting obj = new ListTypeExisting()
+      {
+        Name = "test list",
+        Items = 
+        {
+          new SimpleType { StringValue = "item 1", CharValue = '1'},
+          new SimpleType { StringValue = "item 2", CharValue = '2', IntValue = 25 }
+        }
+      };
+
+      string actual = CodeBuilder.BuildStaticReadOnly(obj, "ListExisting");
+      const string expected =
+@"    public static readonly ListTypeExisting ListExisting = new ListTypeExisting
+    {
+      Name = ""test list"",
+      Items = 
+      {
+        new SimpleType
+        {
+          IntValue = 0,
+          StringValue = ""item 1"",
+          CharValue = '1',
+          EnumValue = SimpleEnum.SomeValue
+        },
+        new SimpleType
+        {
+          IntValue = 25,
+          StringValue = ""item 2"",
+          CharValue = '2',
+          EnumValue = SimpleEnum.SomeValue
+        }
+      }
+    };";
+
+      Assert.AreEqual(expected, actual);
+    }
+
+    [Test]
     public void BuildDictionaryNew()
     {
       DictionaryTypeNew obj = new DictionaryTypeNew
@@ -363,6 +403,51 @@ namespace BrokenEvent.Object2Code.Tests
     {
       Name = ""test list"",
       Items = new Dictionary<string, SimpleType>
+      {
+        {
+          ""test1"",
+          new SimpleType
+          {
+            IntValue = 0,
+            StringValue = ""item 1"",
+            CharValue = '1',
+            EnumValue = SimpleEnum.SomeValue
+          }
+        },
+        {
+          ""test2"",
+          new SimpleType
+          {
+            IntValue = 25,
+            StringValue = ""item 2"",
+            CharValue = '2',
+            EnumValue = SimpleEnum.SomeValue
+          }
+        }
+      }
+    };";
+
+      Assert.AreEqual(expected, actual);
+    }
+
+    [Test]
+    public void BuildDictionaryExisting()
+    {
+      DictionaryTypeExisting obj = new DictionaryTypeExisting
+      {
+        Name = "test list",
+        Items = 
+        {
+          { "test1", new SimpleType { StringValue = "item 1", CharValue = '1'} },
+          { "test2", new SimpleType { StringValue = "item 2", CharValue = '2', IntValue = 25 } }
+        }
+      };
+
+      string actual = CodeBuilder.BuildStaticReadOnly(obj, "DictionaryExisting"); const string expected =
+@"    public static readonly DictionaryTypeExisting DictionaryExisting = new DictionaryTypeExisting
+    {
+      Name = ""test list"",
+      Items = 
       {
         {
           ""test1"",
@@ -443,8 +528,5 @@ namespace BrokenEvent.Object2Code.Tests
 
       Assert.AreEqual(expected, actual);
     }
-
-    // TODO flag enums
-    // TODO non-creatable lists/dictionaries/arrays
   }
 }

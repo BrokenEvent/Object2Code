@@ -20,6 +20,16 @@ namespace BrokenEvent.Object2Code.Builders
 
     public bool WillBuild(object value, IBuildContext context)
     {
+      // we can build code for get-only properties, in certain cases
+      if (!property.CanWrite)
+      {
+        IBuilder builder = context.Dictionary.GetBuilder(property.PropertyType);
+
+        // IBuilderEx can handle assigment-less syntax
+        return builder is IBuilderEx;
+      }
+
+      // regular case
       return value != null || context.Settings.NullValuesHandling != NullValues.Ignore;
     }
 
@@ -27,7 +37,8 @@ namespace BrokenEvent.Object2Code.Builders
     {
       context.Append(property.Name);
       context.Append(" = ");
-      context.AppendContent(target);
+
+      context.AppendContent(target, property.CanWrite);
     }
   }
 }

@@ -18,6 +18,7 @@
     <Compile Include="Builders\ComplexTypeBuilder.cs" />
     <Compile Include="Builders\EnumBuilder.cs" />
     <Compile Include="Interfaces\IBuildContext.cs" />
+    <Compile Include="Interfaces\IBuilderEx.cs" />
     <Compile Include="Interfaces\ITypeDictionary.cs" />
     <Compile Include="Builders\LiteralBuilder.cs" />
     <Compile Include="Builders\PrimitiveBuilder.cs" />

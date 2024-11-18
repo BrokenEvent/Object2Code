@@ -8,11 +8,13 @@ namespace BrokenEvent.Object2Code.Interfaces
     StringBuilder StringBuilder { get; }
     BuilderSettings Settings { get; }
 
+    ITypeDictionary Dictionary { get; }
+
     void AppendTypeName(Type type);
 
     void Append(string text);
 
-    void AppendContent(object target);
+    void AppendContent(object target, bool useConstructor = true);
 
     void AppendIndent();
 

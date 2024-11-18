@@ -2,10 +2,10 @@
 
 namespace BrokenEvent.Object2Code.Tests.Types
 {
-  class DictionaryTypeNew
+  class DictionaryTypeExisting
   {
     public string Name { get; set; }
 
-    public Dictionary<string, SimpleType> Items { get; set; }
+    public Dictionary<string, SimpleType> Items { get; } = new Dictionary<string, SimpleType>();
   }
 }
