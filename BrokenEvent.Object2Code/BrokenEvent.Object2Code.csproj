@@ -12,6 +12,7 @@
     <Compile Include="Builders\ArrayBuilder.cs" />
     <Compile Include="Builders\DefaultBuilder.cs" />
     <Compile Include="Builders\DictionaryBuilder.cs" />
+    <Compile Include="Builders\FlagsEnumBuilder.cs" />
     <Compile Include="CodeBuilder.cs" />
     <Compile Include="Builders\CollectionBuilder.cs" />
     <Compile Include="Builders\ComplexTypeBuilder.cs" />

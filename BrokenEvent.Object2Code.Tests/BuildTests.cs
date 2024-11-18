@@ -390,6 +390,60 @@ namespace BrokenEvent.Object2Code.Tests
       Assert.AreEqual(expected, actual);
     }
 
+    [Test]
+    public void BuildFlagsEnum1()
+    {
+      FlagsEnumType obj = new FlagsEnumType
+      {
+        Value = FlagsEnum.OneValue
+      };
+
+      string actual = CodeBuilder.BuildStaticReadOnly(obj, "FlagsEnum1");
+      const string expected =
+@"    public static readonly FlagsEnumType FlagsEnum1 = new FlagsEnumType
+    {
+      Value = FlagsEnum.OneValue
+    };";
+
+      Assert.AreEqual(expected, actual);
+    }
+
+    [Test]
+    public void BuildFlagsEnum2()
+    {
+      FlagsEnumType obj = new FlagsEnumType
+      {
+        Value = FlagsEnum.OneValue | FlagsEnum.AnotherValue
+      };
+
+      string actual = CodeBuilder.BuildStaticReadOnly(obj, "FlagsEnum2");
+      const string expected =
+@"    public static readonly FlagsEnumType FlagsEnum2 = new FlagsEnumType
+    {
+      Value = FlagsEnum.OneValue | FlagsEnum.AnotherValue
+    };";
+
+      Assert.AreEqual(expected, actual);
+    }
+
+    [Test]
+    public void BuildFlagsEnum0()
+    {
+      FlagsEnumType obj = new FlagsEnumType
+      {
+        Value = 0
+      };
+
+      string actual = CodeBuilder.BuildStaticReadOnly(obj, "FlagsEnum0");
+      const string expected =
+@"    public static readonly FlagsEnumType FlagsEnum0 = new FlagsEnumType
+    {
+      Value = 0
+    };";
+
+      Assert.AreEqual(expected, actual);
+    }
+
     // TODO flag enums
     // TODO non-creatable lists/dictionaries/arrays
   }

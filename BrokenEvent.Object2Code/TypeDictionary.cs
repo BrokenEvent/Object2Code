@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 using BrokenEvent.Object2Code.Builders;
 using BrokenEvent.Object2Code.Interfaces;
@@ -58,7 +59,11 @@ namespace BrokenEvent.Object2Code
         return new ArrayBuilder(type);
 
       if (type.IsEnum)
+      {
+        if (type.GetCustomAttribute(typeof(FlagsAttribute)) != null)
+          return new FlagsEnumBuilder(type);
         return new EnumBuilder(type);
+      }
 
       foreach (Type iface in type.GetInterfaces())
       {
