@@ -43,6 +43,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Types\ArrayType.cs" />
     <Compile Include="Types\ComplexType.cs" />
+    <Compile Include="Types\ConstructorHidden.cs" />
+    <Compile Include="Types\ConstructorPrivate.cs" />
     <Compile Include="Types\ConstructorTypeAllReadOnly.cs" />
     <Compile Include="Types\ConstructorTypeReadOnly.cs" />
     <Compile Include="Types\DictionaryTypeNew.cs" />

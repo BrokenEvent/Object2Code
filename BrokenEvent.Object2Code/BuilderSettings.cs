@@ -23,7 +23,7 @@
 
   public enum NullValues
   {
-    Implicit,
     Ignore,
+    Implicit,
   }
 }

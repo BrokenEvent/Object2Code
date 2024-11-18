@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 using BrokenEvent.Object2Code.Tests.Types;
 
@@ -42,7 +43,7 @@ namespace BrokenEvent.Object2Code.Tests
         CharValue = '!'
       };
 
-      string actual = CodeBuilder.BuildStaticReadOnly(obj, "SimpleFullName", new BuilderSettings() { UseFullNames = true });
+      string actual = CodeBuilder.BuildStaticReadOnly(obj, "SimpleFullName", new BuilderSettings { UseFullNames = true });
       const string expected =
 @"    public static readonly BrokenEvent.Object2Code.Tests.Types.SimpleType SimpleFullName = new BrokenEvent.Object2Code.Tests.Types.SimpleType
     {
@@ -114,6 +115,57 @@ namespace BrokenEvent.Object2Code.Tests
     }
 
     [Test]
+    public void BuildConstructorHidden()
+    {
+      ConstructorHidden obj = new ConstructorHidden(25);
+
+      string actual = CodeBuilder.BuildStaticReadOnly(obj, "CtorHidden");
+      const string expected =
+@"    public static readonly ConstructorHidden CtorHidden = new ConstructorHidden(
+        default(int)
+      );";
+
+      Assert.AreEqual(expected, actual);
+    }
+
+    [Test]
+    public void BuildConstructorHiddenTodo()
+    {
+      ConstructorHidden obj = new ConstructorHidden(25);
+
+      string actual = CodeBuilder.BuildStaticReadOnly(obj, "CtorHiddenTodo", new BuilderSettings { AddToDo = true });
+      const string expected =
+@"    public static readonly ConstructorHidden CtorHiddenTodo = new ConstructorHidden(
+        default(int) /* TODO */
+      );";
+
+      Assert.AreEqual(expected, actual);
+    }
+
+    [Test]
+    public void BuildConstructorPrivateTodo()
+    {
+      ConstructorPrivate obj = ConstructorPrivate.Create(25);
+
+      string actual = CodeBuilder.BuildStaticReadOnly(obj, "CtorPrivateTodo", new BuilderSettings { ThrowOnMissingConstructor = false });
+      const string expected =
+@"    public static readonly ConstructorPrivate CtorPrivateTodo = new ConstructorPrivate()/* TODO */;";
+
+      Assert.AreEqual(expected, actual);
+    }
+
+    [Test]
+    public void BuildConstructorPrivateThrow()
+    {
+      ConstructorPrivate obj = ConstructorPrivate.Create(25);
+
+      Assert.Throws(
+          typeof(InvalidOperationException),
+          () => CodeBuilder.BuildStaticReadOnly(obj, "CtorPrivateThrow", new BuilderSettings { ThrowOnMissingConstructor = true })
+        );
+    }
+
+    [Test]
     public void BuildComplex()
     {
       ComplexType obj = new ComplexType
@@ -138,8 +190,7 @@ namespace BrokenEvent.Object2Code.Tests
         StringValue = ""Hello World"",
         CharValue = '!',
         EnumValue = SimpleEnum.SomeValue
-      },
-      EmbeddedComplex = null
+      }
     };";
 
       Assert.AreEqual(expected, actual);
@@ -222,8 +273,7 @@ namespace BrokenEvent.Object2Code.Tests
           StringValue = ""Bye world"",
           CharValue = '~',
           EnumValue = SimpleEnum.SomeOtherValue
-        },
-        EmbeddedComplex = null
+        }
       }
     };";
 

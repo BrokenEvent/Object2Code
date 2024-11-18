@@ -56,7 +56,8 @@ namespace BrokenEvent.Object2Code.Builders
         }
 
       // use this constructor (remove used properties from the list)
-      UseConstructor(preferredConstructor.GetParameters(), props, constructorArgs, dictionary);
+      if (preferredConstructor != null)
+        UseConstructor(preferredConstructor.GetParameters(), props, constructorArgs, dictionary);
 
       // fill the list with remaining properties
       foreach (PropertyInfo info in props.Values)
@@ -146,11 +147,6 @@ namespace BrokenEvent.Object2Code.Builders
       if (properties.Count == 0)
         return;
 
-      context.AppendLineBreak();
-      context.Append("{");
-      context.IncreaseIndent();
-      context.AppendLineBreak();
-
       bool firstProperty = true;
 
       foreach (PropertyBuilder property in properties)
@@ -160,7 +156,14 @@ namespace BrokenEvent.Object2Code.Builders
         if (!property.WillBuild(value, context))
           continue;
 
-        if (!firstProperty)
+        if (firstProperty)
+        {
+          context.AppendLineBreak();
+          context.Append("{");
+          context.IncreaseIndent();
+          context.AppendLineBreak();
+        }
+        else
         {
           context.Append(",");
           context.AppendLineBreak();
@@ -169,6 +172,9 @@ namespace BrokenEvent.Object2Code.Builders
 
         property.Build(value, context);
       }
+
+      if (firstProperty)
+        return;
 
       context.DecreaseIndent();
       context.AppendLineBreak();
