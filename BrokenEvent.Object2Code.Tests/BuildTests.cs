@@ -80,6 +80,31 @@ namespace BrokenEvent.Object2Code.Tests
     }
 
     [Test]
+    public void BuildSimpleBool()
+    {
+      SimpleTypeBool obj = new SimpleTypeBool
+      {
+        IntValue = 25,
+        StringValue = "Hello World",
+        CharValue = '!',
+        BoolValue = true
+      };
+
+      string actual = CodeBuilder.BuildStaticReadOnly(obj, "SimpleBool");
+      const string expected =
+@"    public static readonly SimpleTypeBool SimpleBool = new SimpleTypeBool
+    {
+      BoolValue = true,
+      IntValue = 25,
+      StringValue = ""Hello World"",
+      CharValue = '!',
+      EnumValue = SimpleEnum.SomeValue
+    };";
+
+      Assert.AreEqual(expected, actual);
+    }
+
+    [Test]
     public void BuildConstructorHybrid()
     {
       ConstructorTypeReadOnly obj = new ConstructorTypeReadOnly(25)

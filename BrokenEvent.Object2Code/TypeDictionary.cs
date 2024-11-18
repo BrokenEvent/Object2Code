@@ -13,6 +13,7 @@ namespace BrokenEvent.Object2Code
     private readonly PrimitiveBuilder primitiveBuilder = new PrimitiveBuilder();
     private readonly LiteralBuilder stringBuilder = new LiteralBuilder("\"");
     private readonly LiteralBuilder charBuilder = new LiteralBuilder("'");
+    private readonly BooleanBuilder booleanBuilder = new BooleanBuilder();
 
     private readonly Dictionary<Type, string> keywords = new Dictionary<Type, string>
     {
@@ -39,6 +40,8 @@ namespace BrokenEvent.Object2Code
         return stringBuilder;
       if (type == typeof(char))
         return charBuilder;
+      if (type == typeof(bool))
+        return booleanBuilder;
 
       if (type.IsPrimitive)
         return primitiveBuilder;

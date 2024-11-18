@@ -10,6 +10,7 @@
     <Compile Include="BuilderSettings.cs" />
     <Compile Include="Builders\ArgBuilder.cs" />
     <Compile Include="Builders\ArrayBuilder.cs" />
+    <Compile Include="Builders\BooleanBuilder.cs" />
     <Compile Include="Builders\DefaultBuilder.cs" />
     <Compile Include="Builders\DictionaryBuilder.cs" />
     <Compile Include="Builders\FlagsEnumBuilder.cs" />

@@ -8,13 +8,14 @@ namespace BrokenEvent.Object2Code
   internal class BuildContext: IBuildContext
   {
     private int indentLevel;
-    private StringBuilder stringBuilder = new StringBuilder();
+    private readonly StringBuilder stringBuilder;
 
-    public BuildContext(object target, ITypeDictionary dictionary, BuilderSettings settings)
+    public BuildContext(object target, ITypeDictionary dictionary, BuilderSettings settings, StringBuilder stringBuilder)
     {
       Dictionary = dictionary;
       indentLevel = settings.InitialIndentLevel;
       Settings = settings;
+      this.stringBuilder = stringBuilder;
     }
 
     public StringBuilder StringBuilder

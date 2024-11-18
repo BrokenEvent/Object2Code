@@ -53,6 +53,7 @@
     <Compile Include="Types\ListTypeExisting.cs" />
     <Compile Include="Types\ListTypeNew.cs" />
     <Compile Include="Types\SimpleType.cs" />
+    <Compile Include="Types\SimpleTypeBool.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
